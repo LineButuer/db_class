@@ -9,9 +9,10 @@ select * from book;
 -- 4. 20000원 미만의 도서만 조회 
 select * from book where b_price < 20000;
 -- 5. 10000원 이상 20000원 이하인 도서만 조회
-select * from book where b_price between 10000 and 20000;
+select * from book where b_price between 10000 and 20000; -- between은 입력된 값을 포함한다.
 -- 6. 출판사가 좋은출판사 또는 대한출판사인 도서 조회 
 select * from book where b_publisher = '대한출판사' or b_publisher = '좋은출판사';
+select * from book where b_publisher in ('대한출판사', '좋은출판사');
 -- 7. 도서명에 축구가 포함된 모든 도서를 조회
 select * from book where b_bookname like '%축구%';
 -- 8. 도서명의 두번째 글자가 구인 도서 조회
