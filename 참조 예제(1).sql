@@ -1,3 +1,5 @@
+use db_dbclass;
+
 drop table if exists book;
 create table book(
 	id bigint auto_increment primary key,
@@ -17,7 +19,7 @@ create table customer(
 drop table if exists orders;
 create table orders(
 	id bigint auto_increment primary key,
-    o_salepirce bigint,
+    o_saleprice bigint,
     o_oderdate date,
     customer_id bigint,
     book_id bigint,
@@ -43,14 +45,14 @@ insert into customer(c_name, c_address, c_phone) values('류현진', '캐나다 
 insert into customer(c_name, c_address) values('이강인', '프랑스 파리');
 select*from customer;
 
-insert into orders(customer_id, book_id, o_salepirce, o_oderdate) values(1, 1, '6000', '2023-07-01');
-insert into orders(customer_id, book_id, o_salepirce, o_oderdate) values(1, 3, '21000', '2023-07-03');
-insert into orders(customer_id, book_id, o_salepirce, o_oderdate) values(2, 5, '8000', '2023-07-03');
-insert into orders(customer_id, book_id, o_salepirce, o_oderdate) values(3, 6, '6000', '2023-07-04');
-insert into orders(customer_id, book_id, o_salepirce, o_oderdate) values(4, 7, '20000', '2023-07-05');
-insert into orders(customer_id, book_id, o_salepirce, o_oderdate) values(1, 2, '12000', '2023-07-07');
-insert into orders(customer_id, book_id, o_salepirce, o_oderdate) values(4, 8, '13000', '2023-07-07');
-insert into orders(customer_id, book_id, o_salepirce, o_oderdate) values(3, 10, '12000', '2023-07-08');
-insert into orders(customer_id, book_id, o_salepirce, o_oderdate) values(2, 10, '7000', '2023-07-09');
-insert into orders(customer_id, book_id, o_salepirce, o_oderdate) values(3, 8, '13000', '2023-07-10');
+insert into orders(customer_id, book_id, o_saleprice, o_oderdate) values(1, 1, '6000', '2023-07-01');
+insert into orders(customer_id, book_id, o_saleprice, o_oderdate) values(1, 3, '21000', '2023-07-03');
+insert into orders(customer_id, book_id, o_saleprice, o_oderdate) values(2, 5, '8000', '2023-07-03');
+insert into orders(customer_id, book_id, o_saleprice, o_oderdate) values(3, 6, '6000', '2023-07-04');
+insert into orders(customer_id, book_id, o_saleprice, o_oderdate) values(4, 7, '20000', '2023-07-05');
+insert into orders(customer_id, book_id, o_saleprice, o_oderdate) values(1, 2, '12000', '2023-07-07');
+insert into orders(customer_id, book_id, o_saleprice, o_oderdate) values(4, 8, '13000', '2023-07-07');
+insert into orders(customer_id, book_id, o_saleprice, o_oderdate) values(3, 10, '12000', '2023-07-08');
+insert into orders(customer_id, book_id, o_saleprice, o_oderdate) values(2, 10, '7000', '2023-07-09');
+insert into orders(customer_id, book_id, o_saleprice, o_oderdate) values(3, 8, '13000', '2023-07-10');
 select* from orders;
