@@ -1,3 +1,6 @@
+use db_dbclass; -- 이거 꼭 써야됨.
+
+
 -- 1. 모든 도서의 가격과 도서명 조회 
 select b_bookname, b_price from book;
 -- 2. 모든 출판사 이름 조회 
