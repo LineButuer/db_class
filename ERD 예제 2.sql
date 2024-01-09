@@ -42,6 +42,10 @@ create table good(
     foreign key (members_id) references members(id)
 );
 
+insert into good (comments_id, members_id) values (2, 1);
+insert into good (comments_id, members_id) values (2, 5);
+
+
 drop table if exists category;
 create table category(
 	id bigint auto_increment primary key,
@@ -104,6 +108,36 @@ select * from board where members_id =1;
 update board set board_title = 'hhi', board_contents = '6번 게시물' where id = 6;
 -- 5. 2번 회원이 자유게시판에 첫번째로 작성한 게시글 삭제
 delete from board where members_id =2 and id =9 and category_id=1;
+-- 7. 페이징
+select * from board order by id desc;
+select count(*) from board;
+-- 한 페이지에 3개씩 ( 앞 숫자는 순서대로 번호를 매겼을 때 번호 뒷 번호는 한 페이지에 얼마나 표시를 할건지 )
+select * from board order by id desc limit 0,3;
+select * from board order by id desc limit 3,3;
+select * from board order by id desc limit 6,3;
+-- 한 페이지에 5개씩 
+select * from board order by id desc limit 0,5;
+select * from board order by id desc limit 5,5;
+select * from board order by id desc limit 10,5;
+
+-- 8. 검색(글제목 기준)
+select * from board where board_title like 'hi%';
+-- 8.1 검색결과를 오래된 순으로 조회 
+select * from board where board_title like 'hi%' order by id asc;
+-- 8.2 검색결과를 조회수 내림차순으로 조회 
+select * from board where board_title like 'hi%' order by board_hits desc;
+-- 8.3 검색결과 페이징 처리 
+select * from board where board_title like 'hi%' order by board_hits desc limit 0, 3;
+
+-- 댓글 기능 
+-- 1. 댓글 작성 
+-- 1.1. 1번 회원이 1번 게시글에 댓글 작성 
+-- 1.2. 2번 회원이 1번 게시글에 댓글 작성 
+-- 2. 댓글 조회
+-- 3. 댓글 좋아요 
+-- 3.1. 1번 회원이 2번 회원이 작성한 댓글에 좋아요 클릭
+-- 3.2. 3번 회원이 2번 회원이 작성한 댓글에 좋아요 클릭 
+-- 4. 댓글 조회시 좋아요 갯수도 함께 조회
 drop table if exists board_file;
 create table board_file (
 	id bigint auto_increment primary key,
@@ -126,3 +160,24 @@ create table comments(
     constraint fk_comments_board foreign key (board_id) references board(id),
     constraint fk_commnets_members foreign key (members_id) references members(id)
     );
+-- 댓글 기능
+-- 1. 댓글 작성 
+select * from board;
+insert into comments (commnets_writer, comments_contents, board_id, members_id) values ( '이태양', '오늘 정말 따뜻하네요1', 6, 1); 
+insert into comments (commnets_writer, comments_contents, board_id, members_id) values ( '삼태양', '오늘 정말 춥네요', 6, 2);
+insert into comments (commnets_writer, comments_contents, board_id, members_id) values ( '4태양', '오늘 정말 춥네요', 6, 5);
+select * from comments;
+select * from comments where id =1;
+
+-- 1.1. 1번 회원이 1번 게시글에 댓글 작성 
+-- 1.2. 2번 회원이 1번 게시글에 댓글 작성 
+-- 2. 댓글 조회
+-- 3. 댓글 좋아요
+insert into good (comments_id, members_id) values (2, 1);
+insert into good (comments_id, members_id) values (2, 5);
+-- 3.1. 1번 회원이 2번 회원이 작성한 댓글에 좋아요 클릭
+-- 좋아요 했는지 체크
+select id from good where comments_id = 2 and members_id =1;
+-- 3.2. 3번 회원이 2번 회원이 작성한 댓글에 좋아요 클릭 
+-- 4. 댓글 조회시 좋아요 갯수도 함께 조회
+select c.commnets_writer, c.comments_contents, count(*) from comments c, good g where c.id = g.comments_id and c.id =2;
